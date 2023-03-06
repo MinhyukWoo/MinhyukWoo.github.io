@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>웹 페이지 시작하기</title>
-    </head>
-    <body>
-        <h2>목차</h2>
-        <ol>
-            <li><a href="IntroToHtml.html">HTML 시작하기</a></li>
-            <li><a href="IntroToCss.html">CSS 시작하기</a></li>
-            <li><a href="MoreHtmlTags.html">HTML 태그 더 알아보기</a></li>
-            <li><a href="CssTextProperties.html">CSS 문자열 속성</a></li>
-        </ol>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhyuk Woo</title>
+  </head>
+  <body>
+    <h2>Minhyuk Woo</h2>
+    <div id="articles"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      console.log(axios);
+      axios
+        .get("https://apex.oracle.com/pls/apex/minhyuk/wooblog/articles")
+        .then((data) => {
+            console.log(data);
+          if (data.data && data.data.items) {
+            for (item of data.data.items) {
+              const articlesElement = document.getElementById("articles");
+              const articleElement = document.createElement("div");
+
+              const titleElement = document.createElement("h3");
+              titleElement.innerText = item.title;
+              articleElement.appendChild(titleElement);
+
+              const bodyElement = document.createElement("div");
+              bodyElement.innerHTML = item.body;
+              articleElement.appendChild(bodyElement);
+
+              articlesElement.appendChild(articleElement);
+              console.log("data");
+            }
+          }
+        });
+    </script>
+  </body>
 </html>
